@@ -2,3 +2,90 @@ data-model
 ==========
 
 Automagically generated test data
+
+This library allows using expanded definition of generated data.
+Using JSON format the following information could be defined:
+ * field name
+ * type (currently supported: integer, long, date, string, array, object)
+ * probability - number indicating the probability of given field in generated data 
+   (100 means field is always generated, 50 means that a half of document contains given field)
+ * size (for arrays)
+Example of input file: 
+
+{ 
+	"data" : {
+		"id" : {
+			"type" : "identifier"
+		},
+		"tags" : {
+			"type" : "array",
+			"subtype" : {
+				"type": "integer"
+			},
+			"size" : 10
+		},
+		"position" : {
+			"type" : "object",
+			"fields" : {
+				"lon" : {
+					"type" : "long"
+				},
+				"lat" : {
+					"type" : "long"
+				}
+			},
+			"probability" : 50
+		},
+		"created" : {
+			"type" : "date"
+		},
+		"name" : {
+			"type" : "string",
+			"probability" : 30
+		}
+	}
+}
+
+Usage:
+
+DataModel model = DataModel.builder().fromJson(DataModelTest.class.getResourceAsStream("/input.json"));
+
+
+
+
+Output depends on producer class used. For example: 
+
+new SolrDataModelProducer().convert(model.getValue());
+
+generates:
+
+<doc>
+	<field name="id">30</field>
+	<field name="tags">1061831906</field>
+	<field name="tags">1823041322</field>
+	<field name="tags">1043347384</field>
+	<field name="tags">1435798929</field>
+	<field name="tags">1863886272</field>
+	<field name="tags">614448648</field>
+	<field name="tags">899164045</field>
+	<field name="tags">293936725</field>
+	<field name="tags">1762090246</field>
+	<field name="tags">1009759002</field>
+	<field name="position.lon">-3400858544594038103</field>
+	<field name="position.lat">-3581634897016771756</field>
+	<field name="created">2011-05-15T20:57:28</field>
+</doc>
+
+For JsonDataModelProducer: 
+
+new JsonDataModelProducer().convert(model.getValue());
+
+output is:
+
+{
+	"id":"3",
+	"tags":[1102324772,1639875632,941233980,187315297,99270113,2044803615,1811470888,1093630565,2071000800,2129652106],
+	"position":null,
+	"created":1015062520000,
+	"name":null
+}

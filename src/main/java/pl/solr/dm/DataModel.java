@@ -9,7 +9,7 @@ import pl.solr.dm.types.ObjectDataType;
 
 public class DataModel {
 	@JsonProperty
-	private Map<String, DataType> data = new HashMap<String, DataType>();
+	private Map<String, DataType<?>> data = new HashMap<String, DataType<?>>();
 	
 	public static DataModelBuilder builder() {
 		return new DataModelBuilder();

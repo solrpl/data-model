@@ -2,7 +2,6 @@ package pl.solr.dm.producers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,15 +17,14 @@ public class SolrDataModelProducer extends DataModelProducer {
 	public String convert(DataModel model) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<doc>\n");
-		for (Entry<String, DataType> entry : ((Map<String, DataType>) model.getValue().getValue()).entrySet()) {
+		for (Entry<String, DataType<?>> entry : model.getValue().getValue().entrySet()) {
 			processItem(builder, entry.getKey(), entry.getValue());
 		}
 		builder.append("</doc>\n");
 		return builder.toString();
 	}
 	
-	private void processItem(StringBuilder builder, String key, DataType type) {
-		//TODO type safety
+	private void processItem(StringBuilder builder, String key, DataType<?> type) {
 		if (type instanceof ArrayDataType) {
 			processArray(builder, key , (ArrayDataType) type);
 			return;
@@ -41,18 +39,18 @@ public class SolrDataModelProducer extends DataModelProducer {
 	}
 
 	private void processArray(StringBuilder builder, String key, ArrayDataType array) {
-		for (DataType item : (List<DataType>) array.getValue()) {
+		for (DataType<?> item : array.getValue()) {
 			processItem(builder, key, item);
 		}
 		
 	}
 	
 	private void processObject(StringBuilder builder, String key, ObjectDataType object) {
-		Map<String, DataType> fields = (Map<String, DataType>) object.getValue();
+		Map<String, DataType<?>> fields = object.getValue();
 		if (fields == null) {
 			return;
 		}
-		for (Entry<String, DataType> entry : fields.entrySet()) {
+		for (Entry<String, DataType<?>> entry : fields.entrySet()) {
 			processItem(builder, key + "." + entry.getKey(), entry.getValue());
 		}
 		

@@ -2,10 +2,10 @@ package pl.solr.dm.types;
 
 import pl.solr.dm.DataType;
 
-public class LongDataType extends DataType {
+public class LongDataType extends DataType<Long> {
 
 	@Override
-	protected Object generateValue() {
+	protected Long generateValue() {
 		return RANDOM.nextLong();
 	}
 

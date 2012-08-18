@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 
-public abstract class DataType {
+public abstract class DataType<T> {
 	protected static DataFactory GENERATOR = new DataFactory();
 	protected static Random RANDOM = new Random();
 	
@@ -18,12 +18,12 @@ public abstract class DataType {
 
 
 	@JsonValue
-	public final Object getValue() {
+	public final T getValue() {
 		if (RANDOM.nextInt(100) < probability) {
 			return generateValue();
 		}
 		return null;
 	}
 	
-	protected abstract Object generateValue();
+	protected abstract T generateValue();
 }

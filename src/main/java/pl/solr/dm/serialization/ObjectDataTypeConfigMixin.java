@@ -8,5 +8,5 @@ import pl.solr.dm.DataType;
 
 public class ObjectDataTypeConfigMixin {
 	@JsonProperty
-	private Map<String, DataType> fields;
+	private Map<String, DataType<?>> fields;
 }

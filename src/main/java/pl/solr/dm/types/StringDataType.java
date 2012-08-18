@@ -5,7 +5,7 @@ import pl.solr.dm.DataType;
 public class StringDataType extends DataType {
 
 	@Override
-	public Object getValue() {
+	protected Object generateValue() {
 		return GENERATOR.getRandomWord();
 	}
 

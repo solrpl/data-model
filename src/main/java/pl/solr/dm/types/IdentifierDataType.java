@@ -6,7 +6,7 @@ public class IdentifierDataType extends DataType {
 	private static long counter = 0;
 	
 	@Override
-	public Object getValue() {
+	protected Object generateValue() {
 		return "" + (++counter);
 	}
 

@@ -18,12 +18,12 @@ public abstract class DataType {
 
 
 	@JsonValue
-	public Object getValueIfNecessary() {
+	public final Object getValue() {
 		if (RANDOM.nextInt(100) < probability) {
-			return getValue();
+			return generateValue();
 		}
 		return null;
 	}
 	
-	public abstract Object getValue();
+	protected abstract Object generateValue();
 }

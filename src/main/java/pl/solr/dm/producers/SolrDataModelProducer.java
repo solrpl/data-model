@@ -1,5 +1,7 @@
 package pl.solr.dm.producers;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import pl.solr.dm.DataModel;
@@ -13,7 +15,7 @@ public class SolrDataModelProducer extends DataModelProducer {
 	public String convert(DataModel model) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<doc>\n");
-		for (Entry<String, DataType> entry : model.getValue().getValue().entrySet()) {
+		for (Entry<String, DataType> entry : ((Map<String, DataType>) model.getValue().getValue()).entrySet()) {
 			processItem(builder, entry.getKey(), entry.getValue());
 		}
 		builder.append("</doc>\n");
@@ -36,20 +38,27 @@ public class SolrDataModelProducer extends DataModelProducer {
 	}
 
 	private void processArray(StringBuilder builder, String key, ArrayDataType array) {
-		for (DataType item : array.getValue()) {
+		for (DataType item : (List<DataType>) array.getValue()) {
 			processItem(builder, key, item);
 		}
 		
 	}
 	
 	private void processObject(StringBuilder builder, String key, ObjectDataType object) {
-		for (Entry<String, DataType> entry : object.getValue().entrySet()) {
+		Map<String, DataType> fields = (Map<String, DataType>) object.getValue();
+		if (fields == null) {
+			return;
+		}
+		for (Entry<String, DataType> entry : fields.entrySet()) {
 			processItem(builder, key + "." + entry.getKey(), entry.getValue());
 		}
 		
 	}
 	
-	private void appendField(StringBuilder builder, String key, Object value) {		
+	private void appendField(StringBuilder builder, String key, Object value) {
+		if (value == null) {
+			return;
+		}
 		builder.append("\t<field name=\"");
 		builder.append(key);
 		builder.append("\">");

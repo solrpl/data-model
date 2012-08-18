@@ -19,7 +19,7 @@ public class ObjectDataType extends DataType {
 
 
 	@Override
-	public Map<String, DataType> getValue() {
+	protected Map<String, DataType> generateValue() {
 		return fields;
 	}
 

@@ -16,8 +16,9 @@ public class DataModelTest {
 		for (int i = 0; i < 10; i++) {
 			System.err.println(new JsonDataModelProducer().convert(model));
 		}
-		
-		System.err.println(new SolrDataModelProducer().convert(model));
+		for (int i = 0; i < 10; i++) {
+			System.err.println(new SolrDataModelProducer().convert(model));
+		}
 	}
 
 }

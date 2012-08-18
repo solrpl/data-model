@@ -5,7 +5,7 @@ import pl.solr.dm.DataType;
 public class IntegerDataType extends DataType {
 
 	@Override
-	public Object getValue() {
+	protected Object generateValue() {
 		return GENERATOR.getNumberUpTo(Integer.MAX_VALUE);
 	}
 

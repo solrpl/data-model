@@ -1,5 +1,7 @@
 package pl.solr.dm.producers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,6 +12,7 @@ import pl.solr.dm.types.ArrayDataType;
 import pl.solr.dm.types.ObjectDataType;
 
 public class SolrDataModelProducer extends DataModelProducer {
+	private final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	@Override
 	public String convert(DataModel model) {
@@ -62,8 +65,15 @@ public class SolrDataModelProducer extends DataModelProducer {
 		builder.append("\t<field name=\"");
 		builder.append(key);
 		builder.append("\">");
-		builder.append(value);
+		builder.append(format(value));
 		builder.append("</field>\n");
+	}
+	
+	private String format(Object value) {
+		if (value instanceof Date) {
+			return FORMAT.format(value);
+		}
+		return value.toString();
 	}
 
 }

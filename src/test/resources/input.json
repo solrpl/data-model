@@ -1,0 +1,34 @@
+{	
+	"data" : {
+		"id" : {
+			"type" : "identifier"
+		},
+		"tags" : {
+			"type" : "array",
+			"subtype" : {
+				"type": "integer"
+			},
+			"size" : 10
+		},
+		"position" : {
+			"type" : "object",
+			"fields" : {
+				"lon" : {
+					"type" : "long"
+				},
+				"lat" : {
+					"type" : "long"
+				}
+			},
+			"probability" : 50
+		},
+		"created" : {
+			"type" : "date"
+		},
+		"name" : {
+			"type" : "string",
+			"probability" : 30
+		}
+	}
+}
+	

@@ -23,10 +23,10 @@ public class DataModelTest {
 		assertNotNull(tags);
 		assertTrue(tags instanceof ArrayDataType);
 		for (int i = 0; i < 3; i++) {
-			System.err.println(new JsonDataModelProducer().convert(model));
+			System.err.println(new JsonDataModelProducer().convert(model.getValue()));
 		}
 		for (int i = 0; i < 3; i++) {
-			System.err.println(new SolrDataModelProducer().convert(model));
+			System.err.println(new SolrDataModelProducer().convert(model.getValue()));
 		}
 	}
 	

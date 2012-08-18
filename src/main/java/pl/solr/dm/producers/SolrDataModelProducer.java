@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import pl.solr.dm.DataModel;
 import pl.solr.dm.DataType;
 import pl.solr.dm.types.ArrayDataType;
 import pl.solr.dm.types.ObjectDataType;
@@ -14,10 +13,10 @@ public class SolrDataModelProducer extends DataModelProducer {
 	private final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	@Override
-	public String convert(DataModel model) {
+	public String convert(ObjectDataType object) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<doc>\n");
-		for (Entry<String, DataType<?>> entry : model.getValue().getValue().entrySet()) {
+		for (Entry<String, DataType<?>> entry : object.getValue().entrySet()) {
 			processItem(builder, entry.getKey(), entry.getValue());
 		}
 		builder.append("</doc>\n");

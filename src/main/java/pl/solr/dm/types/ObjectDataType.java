@@ -13,6 +13,15 @@ public class ObjectDataType extends DataType<Map<String, DataType<?>>> {
 		
 	}
 	
+	public String getIdentifier() {
+		for( DataType<?> data : fields.values()) {
+			if (data instanceof IdentifierDataType) {
+				return (String) data.getValue();
+			}
+		}
+		throw new RuntimeException("Data Object have no identifier field.");
+	}
+	
 	protected ObjectDataType(Map<String, DataType<?>> fields) {
 		this.fields = fields;
 	}

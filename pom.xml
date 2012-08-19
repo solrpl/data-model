@@ -51,4 +51,34 @@
 		<connection>https://github.com/solrpl/data-model.git</connection>
 		<developerConnection>https://github.com/solrpl/data-model.git</developerConnection>
 	</scm>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+  </build>
+  <reporting>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-checkstyle-plugin</artifactId>
+              <configuration>
+                  <configLocation>../checkstyle.xml</configLocation>
+              </configuration>
+          </plugin>
+    </plugins>
+  </reporting>
 </project>

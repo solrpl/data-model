@@ -1,3 +1,18 @@
+/**
+ * Copyright 2012 Solr.pl
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package pl.solr.dm;
 
 import java.util.Random;
@@ -5,11 +20,21 @@ import java.util.Random;
 import org.codehaus.jackson.annotate.JsonValue;
 import org.fluttercode.datafactory.impl.DataFactory;
 
-
+/**
+ * Parent class for all types which can be used in data model definition.
+ * 
+ * @author negativ
+ *
+ * @param <T> java type used by type definition
+ */
 public abstract class DataType<T> {
-	protected static DataFactory GENERATOR = new DataFactory();
-	protected static Random RANDOM = new Random();
+	/** generator used for random values. */
+	protected static final DataFactory GENERATOR = new DataFactory();
 	
+	/** random generator used by types definition. */ 
+	protected static final Random RANDOM = new Random();
+	
+	/** probability used for decision: generate or not field for current data record returned. */
 	private int probability = 100;
 
 	static {
@@ -17,6 +42,11 @@ public abstract class DataType<T> {
 	}
 
 
+	/**
+	 * Generate next value for current field considering probability.
+	 *
+	 * @return new generated data or null if field should be skipped for given record
+	 */
 	@JsonValue
 	public final T getValue() {
 		if (RANDOM.nextInt(100) < probability) {
@@ -25,5 +55,9 @@ public abstract class DataType<T> {
 		return null;
 	}
 	
+	/**
+	 * Generate next value for current field.
+	 * @return next generated field
+	 */
 	protected abstract T generateValue();
 }

@@ -3,6 +3,7 @@ target
 .project
 .classpath
 .settings
+.checkstyle
 # Package Files #
 *.jar
 *.war

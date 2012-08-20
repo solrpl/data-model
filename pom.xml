@@ -3,6 +3,14 @@
 	<groupId>pl.solr.datamodel</groupId>
 	<artifactId>datamodel</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
+	<description>Automagically generated test data</description>
+	<url>http://solr.pl/</url>
+	
+	<parent>
+    	<groupId>org.sonatype.oss</groupId>
+    	<artifactId>oss-parent</artifactId>
+    	<version>7</version>
+  	</parent>
     
 	<licenses>
 		<license>

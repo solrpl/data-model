@@ -89,3 +89,14 @@ output is:
 	"created":1015062520000,
 	"name":null
 }
+
+DataModel is released under Apache License, Version 2.0 and available in sonatype repository: 
+https://oss.sonatype.org/content/groups/public/
+
+You can use it in maven with:
+
+    <dependency>
+   	  <groupId>pl.solr.datamodel</groupId>
+   	  <artifactId>datamodel</artifactId>
+   	  <version>0.0.3</version>
+    </dependency>

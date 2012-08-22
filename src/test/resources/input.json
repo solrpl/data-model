@@ -31,6 +31,14 @@
 		},
 		"content" : {
 			"type" : "text"
+		},
+		"number" : {
+			"type" : "enum",
+			"available" : [1, 3, 5, 7]
+		},
+		"status" : {
+			"type" : "enum",
+			"available" : ["WAITING", "OPEN", "RUN", "CLOSED"]
 		}
 	}
 }

@@ -6,7 +6,7 @@ Automagically generated test data
 This library allows using expanded definition of generated data.
 Using JSON format the following information could be defined:
  * field name
- * type (currently supported: identifier, integer, long, date, string, text, array, object)
+ * type (currently supported: identifier, integer, long, date, string, text, array, object, enum)
  * probability - number indicating the probability of given field in generated data 
    (100 means field is always generated, 50 means that a half of document contains given field)
  * size (for arrays)
@@ -42,6 +42,10 @@ Example of input file:
 		"name" : {
 			"type" : "string",
 			"probability" : 30
+		},
+		"status" : {
+			"type" : "enum",
+			"available" : ["OPEN", "WAITING", "RUN", "CLOSED"]
 		}
 	}
 }

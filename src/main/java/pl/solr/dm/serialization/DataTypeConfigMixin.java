@@ -22,6 +22,7 @@ import org.codehaus.jackson.annotate.JsonTypeInfo.Id;
 
 import pl.solr.dm.types.ArrayDataType;
 import pl.solr.dm.types.DateDataType;
+import pl.solr.dm.types.EnumDataType;
 import pl.solr.dm.types.IdentifierDataType;
 import pl.solr.dm.types.IntegerDataType;
 import pl.solr.dm.types.LongDataType;
@@ -38,7 +39,8 @@ import pl.solr.dm.types.TextDataType;
 	@JsonSubTypes.Type(name = "string", value = StringDataType.class),
 	@JsonSubTypes.Type(name = "text", value = TextDataType.class),
 	@JsonSubTypes.Type(name = "date", value = DateDataType.class),
-	@JsonSubTypes.Type(name = "object", value = ObjectDataType.class)
+	@JsonSubTypes.Type(name = "object", value = ObjectDataType.class),
+	@JsonSubTypes.Type(name = "enum", value = EnumDataType.class)
 })
 public class DataTypeConfigMixin {
 	@JsonProperty

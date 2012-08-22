@@ -27,6 +27,7 @@ import pl.solr.dm.types.IntegerDataType;
 import pl.solr.dm.types.LongDataType;
 import pl.solr.dm.types.ObjectDataType;
 import pl.solr.dm.types.StringDataType;
+import pl.solr.dm.types.TextDataType;
 
 @JsonTypeInfo(use = Id.NAME, property = "type")
 @JsonSubTypes({
@@ -35,6 +36,7 @@ import pl.solr.dm.types.StringDataType;
 	@JsonSubTypes.Type(name = "long", value = LongDataType.class),
 	@JsonSubTypes.Type(name = "integer", value = IntegerDataType.class),
 	@JsonSubTypes.Type(name = "string", value = StringDataType.class),
+	@JsonSubTypes.Type(name = "text", value = TextDataType.class),
 	@JsonSubTypes.Type(name = "date", value = DateDataType.class),
 	@JsonSubTypes.Type(name = "object", value = ObjectDataType.class)
 })

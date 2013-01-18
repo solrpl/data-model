@@ -44,6 +44,13 @@ public class DataModelTest {
 		}
 	}
 	
+	@Test
+	public void unserializeToJsonWithNull() {
+		DataModel model = DataModel.builder().fromJson(
+				DataModelTest.class.getResourceAsStream("/null.json"));
+		assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
+	}
+	
 	@Test(expected = RuntimeException.class)
 	public void unserializeWithError() {
 		ByteArrayInputStream bais = new ByteArrayInputStream("{ syntax_error: }".getBytes());

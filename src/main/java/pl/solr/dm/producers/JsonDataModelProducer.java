@@ -15,7 +15,7 @@
  */
 package pl.solr.dm.producers;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.solr.dm.types.ObjectDataType;
 

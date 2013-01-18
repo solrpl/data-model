@@ -17,7 +17,7 @@ package pl.solr.dm.types;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import pl.solr.dm.DataType;
 

@@ -19,7 +19,7 @@ package pl.solr.dm;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import pl.solr.dm.types.ObjectDataType;
 

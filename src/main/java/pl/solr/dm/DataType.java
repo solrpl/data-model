@@ -17,8 +17,9 @@ package pl.solr.dm;
 
 import java.util.Random;
 
-import org.codehaus.jackson.annotate.JsonValue;
 import org.fluttercode.datafactory.impl.DataFactory;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Parent class for all types which can be used in data model definition.

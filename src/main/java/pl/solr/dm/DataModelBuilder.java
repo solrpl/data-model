@@ -17,7 +17,7 @@ package pl.solr.dm;
 
 import java.io.InputStream;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.solr.dm.serialization.DataTypeConfigMixin;
 import pl.solr.dm.serialization.ObjectDataTypeConfigMixin;
@@ -44,9 +44,9 @@ public class DataModelBuilder {
 	 */
 	public final DataModel fromJson(final InputStream resource) {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.getDeserializationConfig()
+		mapper
 			.addMixInAnnotations(DataType.class, DataTypeConfigMixin.class);
-		mapper.getDeserializationConfig()
+		mapper
 			.addMixInAnnotations(ObjectDataType.class, ObjectDataTypeConfigMixin.class);
 		try {
 			return mapper.readValue(resource, DataModel.class);

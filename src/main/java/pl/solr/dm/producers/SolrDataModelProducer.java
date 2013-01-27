@@ -31,7 +31,7 @@ public class SolrDataModelProducer extends DataModelProducer {
 	public String convert(ObjectDataType object) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<doc>\n");
-		for (Entry<String, DataType<?>> entry : object.getValue().entrySet()) {
+		for (Entry<String, DataType<?>> entry : object.getNewValue().entrySet()) {
 			processItem(builder, entry.getKey(), entry.getValue());
 		}
 		builder.append("</doc>\n");
@@ -49,18 +49,18 @@ public class SolrDataModelProducer extends DataModelProducer {
 			return;
 		}
 		
-		appendField(builder, key, type.getValue());		
+		appendField(builder, key, type.getNewValue());		
 	}
 
 	private void processArray(StringBuilder builder, String key, ArrayDataType array) {
-		for (DataType<?> item : array.getValue()) {
+		for (DataType<?> item : array.getNewValue()) {
 			processItem(builder, key, item);
 		}
 		
 	}
 	
 	private void processObject(StringBuilder builder, String key, ObjectDataType object) {
-		Map<String, DataType<?>> fields = object.getValue();
+		Map<String, DataType<?>> fields = object.getNewValue();
 		if (fields == null) {
 			return;
 		}

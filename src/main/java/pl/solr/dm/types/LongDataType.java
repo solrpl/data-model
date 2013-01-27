@@ -20,7 +20,7 @@ import pl.solr.dm.DataType;
 public class LongDataType extends DataType<Long> {
 
 	@Override
-	public Long getValue() {
+	public Long getNewValue() {
 		return RANDOM.nextLong();
 	}
 

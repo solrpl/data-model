@@ -33,7 +33,7 @@ public class EnumDataType extends DataType<Object> {
 	private List<?> available;
 
 	@Override
-	public Object getValue() {
+	public Object getNewValue() {
 		return available.get(RANDOM.nextInt(available.size()));
 	}
 }

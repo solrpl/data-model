@@ -15,7 +15,7 @@
  */
 package pl.solr.dm;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -36,18 +36,18 @@ public class DataModelTest {
 	@Test
 	public void unserialize() {
 		DataModel model = DataModel.builder().fromJson(DataModelTest.class.getResourceAsStream("/input.json"));
-		assertEquals("1", model.getValue().getIdentifier());
+		assertNotNull(model.getValue().getIdentifier());
 		
-		DataType<?> id = model.getValue().getValue().get("id");
+		DataType<?> id = model.getValue().getNewValue().get("id");
 		assertTypeAndNotNull(id, IdentifierDataType.class);
 
-		DataType<?> created = model.getValue().getValue().get("created"); 
+		DataType<?> created = model.getValue().getNewValue().get("created"); 
 		assertTypeAndNotNull(created, DateDataType.class);
 		
-		DataType<?> tags = model.getValue().getValue().get("tags");
+		DataType<?> tags = model.getValue().getNewValue().get("tags");
 		assertTypeAndNotNull(tags, ArrayDataType.class);
 		
-		DataType<?> position = model.getValue().getValue().get("position");
+		DataType<?> position = model.getValue().getNewValue().get("position");
 		if (position != null) { //probability 50%
 			assertTypeAndNotNull(position, ObjectDataType.class);
 			try {
@@ -71,10 +71,11 @@ public class DataModelTest {
 	public void unserializeToJsonWithNull() {
 		DataModel model = DataModel.builder().fromJson(
 				DataModelTest.class.getResourceAsStream("/null.json"));
-		System.err.println(new JsonDataModelProducer().convert(model.getValue()));
-		assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
-		System.err.println(new JsonDataModelProducer().convert(model.getValue()));
-		assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
+		String result = new JsonDataModelProducer().convert(model.getValue());
+		System.out.println(result);
+		assertNotNull(result);
+		assertFalse("null".equals(result));
+		assertTrue("Field should not be available in json", !result.contains("field"));		
 
 	}
 	

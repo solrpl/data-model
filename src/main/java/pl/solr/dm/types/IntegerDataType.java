@@ -20,7 +20,7 @@ import pl.solr.dm.DataType;
 public class IntegerDataType extends DataType<Integer> {
 
 	@Override
-	public Integer getValue() {
+	public Integer getNewValue() {
 		return GENERATOR.getNumberUpTo(Integer.MAX_VALUE);
 	}
 

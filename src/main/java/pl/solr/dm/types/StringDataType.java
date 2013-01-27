@@ -20,7 +20,7 @@ import pl.solr.dm.DataType;
 public class StringDataType extends DataType<String> {
 
 	@Override
-	public String getValue() {
+	public String getNewValue() {
 		return GENERATOR.getRandomWord();
 	}
 

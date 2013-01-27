@@ -26,7 +26,7 @@ import pl.solr.dm.DataType;
 public class TextDataType extends DataType<String> {
 
 	@Override
-	public String getValue() {
+	public String getNewValue() {
 		StringBuilder builder = new StringBuilder();
 		int words = RANDOM.nextInt(40);
 		while (words-- > 0) {

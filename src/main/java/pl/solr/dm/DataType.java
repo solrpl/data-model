@@ -32,6 +32,8 @@ public abstract class DataType<T> {
 	/** generator used for random values. */
 	protected static final DataFactory GENERATOR = new DataFactory();
 	
+	private T currentValue;
+	
 	/** random generator used by types definition. */ 
 	protected static final Random RANDOM = new Random();
 	
@@ -42,23 +44,9 @@ public abstract class DataType<T> {
 		GENERATOR.randomize((int) System.currentTimeMillis());
 	}
 
-
-//	/**
-//	 * Generate next value for current field considering probability.
-//	 *
-//	 * @return new generated data or null if field should be skipped for given record
-//	 */
-//	@JsonValue
-//	public final T getValue() {
-//		if (RANDOM.nextInt(100) < probability) {
-//			return generateValue();
-//		}
-//		return null;
-//	}
-//	
-	
 	public boolean exists() {
 		if (RANDOM.nextInt(100) < probability) {
+			currentValue = getNewValue();
 			return true;
 		}
 		return false;
@@ -66,8 +54,16 @@ public abstract class DataType<T> {
 	/**
 	 * Generate next value for current field.
 	 * @return next generated field
-	 * TODO: change name and identifier should have always the same value
 	 */
+	public abstract T getNewValue();
+	
 	@JsonValue
-	public abstract T getValue();
+	public T getCurrentValue() {
+		if (currentValue == null) {
+			currentValue = getNewValue();
+		}
+		return currentValue;
+	}
+	
+	
 }

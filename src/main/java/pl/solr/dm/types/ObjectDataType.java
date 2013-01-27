@@ -32,7 +32,7 @@ public class ObjectDataType extends DataType<Map<String, DataType<?>>> {
 	public String getIdentifier() {
 		for( DataType<?> data : fields.values()) {
 			if (data instanceof IdentifierDataType) {
-				return (String) data.getValue();
+				return (String) data.getCurrentValue();
 			}
 		}
 		throw new RuntimeException("Data Object have no identifier field.");
@@ -44,7 +44,7 @@ public class ObjectDataType extends DataType<Map<String, DataType<?>>> {
 
 
 	@Override
-	public Map<String, DataType<?>> getValue() {
+	public Map<String, DataType<?>> getNewValue() {
 		return filteredFields(fields);
 	}
 

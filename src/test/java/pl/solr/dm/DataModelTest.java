@@ -48,12 +48,14 @@ public class DataModelTest {
 		assertTypeAndNotNull(tags, ArrayDataType.class);
 		
 		DataType<?> position = model.getValue().getValue().get("position");
-		assertTypeAndNotNull(position, ObjectDataType.class);
-		try {
-			((ObjectDataType) position).getIdentifier();
-			fail("getIdentifier() should throw exception");
-		} catch (RuntimeException re) {
-			assertTrue(true); //It's ok
+		if (position != null) { //probability 50%
+			assertTypeAndNotNull(position, ObjectDataType.class);
+			try {
+				((ObjectDataType) position).getIdentifier();
+				fail("getIdentifier() should throw exception");
+			} catch (RuntimeException re) {
+				assertTrue(true); //It's ok
+			}
 		}
 
 		for (int i = 0; i < 3; i++) {
@@ -70,7 +72,10 @@ public class DataModelTest {
 		DataModel model = DataModel.builder().fromJson(
 				DataModelTest.class.getResourceAsStream("/null.json"));
 		System.err.println(new JsonDataModelProducer().convert(model.getValue()));
-		//TODO assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
+		assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
+		System.err.println(new JsonDataModelProducer().convert(model.getValue()));
+		assertTrue("Field should not be available in json", !new JsonDataModelProducer().convert(model.getValue()).contains("field"));		
+
 	}
 	
 	@Test(expected = RuntimeException.class)

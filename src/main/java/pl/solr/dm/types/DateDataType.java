@@ -22,7 +22,7 @@ import pl.solr.dm.DataType;
 public class DateDataType extends DataType<Date> {
 
 	@Override
-	protected Date generateValue() {
+	public Date getValue() {
 		return GENERATOR.getDateBetween(new Date(0), new Date());
 	}
 

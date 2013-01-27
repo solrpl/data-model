@@ -43,22 +43,31 @@ public abstract class DataType<T> {
 	}
 
 
-	/**
-	 * Generate next value for current field considering probability.
-	 *
-	 * @return new generated data or null if field should be skipped for given record
-	 */
-	@JsonValue
-	public final T getValue() {
-		if (RANDOM.nextInt(100) < probability) {
-			return generateValue();
-		}
-		return null;
-	}
+//	/**
+//	 * Generate next value for current field considering probability.
+//	 *
+//	 * @return new generated data or null if field should be skipped for given record
+//	 */
+//	@JsonValue
+//	public final T getValue() {
+//		if (RANDOM.nextInt(100) < probability) {
+//			return generateValue();
+//		}
+//		return null;
+//	}
+//	
 	
+	public boolean exists() {
+		if (RANDOM.nextInt(100) < probability) {
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * Generate next value for current field.
 	 * @return next generated field
+	 * TODO: change name and identifier should have always the same value
 	 */
-	protected abstract T generateValue();
+	@JsonValue
+	public abstract T getValue();
 }

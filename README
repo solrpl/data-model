@@ -86,14 +86,12 @@ For JsonDataModelProducer:
 
 new JsonDataModelProducer().convert(model.getValue());
 
-output is:
+output can be:
 
 {
 	"id":"3",
 	"tags":[1102324772,1639875632,941233980,187315297,99270113,2044803615,1811470888,1093630565,2071000800,2129652106],
-	"position":null,
-	"created":1015062520000,
-	"name":null
+	"created":1015062520000
 }
 
 DataModel is released under Apache License, Version 2.0 and available in sonatype repository: 

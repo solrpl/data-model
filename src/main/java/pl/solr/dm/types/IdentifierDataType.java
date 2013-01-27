@@ -21,7 +21,7 @@ public class IdentifierDataType extends DataType<String> {
 	private static long counter = 0;
 	
 	@Override
-	protected String generateValue() {
+	public String getValue() {
 		return "" + (++counter);
 	}
 

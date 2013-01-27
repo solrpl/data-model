@@ -30,7 +30,7 @@ public class ArrayDataType extends DataType<List<DataType<?>>> {
 	private int size;
 
 	@Override
-	protected List<DataType<?>> generateValue() {
+	public List<DataType<?>> getValue() {
 		List<DataType<?>> result = new ArrayList<DataType<?>>();
 		for (int i = 0; i < size; i++) {
 			result.add(subtype);

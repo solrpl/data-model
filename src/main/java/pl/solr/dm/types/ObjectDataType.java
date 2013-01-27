@@ -17,6 +17,7 @@ package pl.solr.dm.types;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import pl.solr.dm.DataType;
 
@@ -43,11 +44,21 @@ public class ObjectDataType extends DataType<Map<String, DataType<?>>> {
 
 
 	@Override
-	protected Map<String, DataType<?>> generateValue() {
-		return fields;
+	public Map<String, DataType<?>> getValue() {
+		return filteredFields(fields);
 	}
 
 	public static ObjectDataType create(Map<String, DataType<?>> data) {
 		return new ObjectDataType(data);
+	}
+	
+	private Map<String, DataType<?>> filteredFields(Map<String, DataType<?>> fields) {
+		Map<String, DataType<?>> filtered = new HashMap<String, DataType<?>>();
+		for (Entry<String, DataType<?>> entry : fields.entrySet()) {
+			if (entry.getValue().exists()) {
+				filtered.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return filtered;
 	}
 }

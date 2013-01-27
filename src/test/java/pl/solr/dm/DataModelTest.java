@@ -15,8 +15,10 @@
  */
 package pl.solr.dm;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 
@@ -25,25 +27,44 @@ import org.junit.Test;
 import pl.solr.dm.producers.JsonDataModelProducer;
 import pl.solr.dm.producers.SolrDataModelProducer;
 import pl.solr.dm.types.ArrayDataType;
+import pl.solr.dm.types.DateDataType;
+import pl.solr.dm.types.IdentifierDataType;
+import pl.solr.dm.types.ObjectDataType;
 
 public class DataModelTest {
 	
 	@Test
 	public void unserialize() {
 		DataModel model = DataModel.builder().fromJson(DataModelTest.class.getResourceAsStream("/input.json"));
-		assertNotNull(model.getValue().getValue().get("id"));
-		assertNotNull(model.getValue().getValue().get("created"));
+		assertEquals("1", model.getValue().getIdentifier());
+		
+		DataType<?> id = model.getValue().getValue().get("id");
+		assertTypeAndNotNull(id, IdentifierDataType.class);
+
+		DataType<?> created = model.getValue().getValue().get("created"); 
+		assertTypeAndNotNull(created, DateDataType.class);
+		
 		DataType<?> tags = model.getValue().getValue().get("tags");
-		assertNotNull(tags);
-		assertTrue(tags instanceof ArrayDataType);
+		assertTypeAndNotNull(tags, ArrayDataType.class);
+		
+		DataType<?> position = model.getValue().getValue().get("position");
+		assertTypeAndNotNull(position, ObjectDataType.class);
+		try {
+			((ObjectDataType) position).getIdentifier();
+			fail("getIdentifier() should throw exception");
+		} catch (RuntimeException re) {
+			assertTrue(true); //It's ok
+		}
+
 		for (int i = 0; i < 3; i++) {
-			System.err.println(new JsonDataModelProducer().convert(model.getValue()));
+			System.out.println(new JsonDataModelProducer().convert(model.getValue()));
 		}
 		for (int i = 0; i < 3; i++) {
-			System.err.println(new SolrDataModelProducer().convert(model.getValue()));
+			System.out.println(new SolrDataModelProducer().convert(model.getValue()));
 		}
 	}
 	
+
 	@Test
 	public void unserializeToJsonWithNull() {
 		DataModel model = DataModel.builder().fromJson(
@@ -60,4 +81,8 @@ public class DataModelTest {
 				.fromJson(bais);
 	}
 
+	private void assertTypeAndNotNull(DataType<?> obj, Class<?> type) {
+		assertNotNull(obj);
+		assertTrue("obj: " + obj + " should have type: " + type, obj.getClass().equals(type));
+	}
 }

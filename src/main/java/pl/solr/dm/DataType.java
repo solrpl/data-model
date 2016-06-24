@@ -59,10 +59,7 @@ public abstract class DataType<T> {
 	
 	@JsonValue
 	public T getCurrentValue() {
-		if (currentValue == null) {
-			currentValue = getNewValue();
-		}
-		return currentValue;
+		return getNewValue();
 	}
 	
 	

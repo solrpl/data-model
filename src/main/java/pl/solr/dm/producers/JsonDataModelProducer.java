@@ -22,6 +22,7 @@ import pl.solr.dm.types.ObjectDataType;
 public class JsonDataModelProducer extends DataModelProducer {
 
 	public String convert(ObjectDataType object) {
+		System.out.println("USING NEW JSON DATA MODEL PRODUCER");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(object);

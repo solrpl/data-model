@@ -59,6 +59,7 @@ public abstract class DataType<T> {
 	
 	@JsonValue
 	public T getCurrentValue() {
+		System.out.println("USING NEW VALUE");
 		return getNewValue();
 	}
 	

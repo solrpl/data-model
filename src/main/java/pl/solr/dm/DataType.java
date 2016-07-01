@@ -59,10 +59,8 @@ public abstract class DataType<T> {
 	
 	@JsonValue
 	public T getCurrentValue() {
-		if (currentValue == null) {
-			currentValue = getNewValue();
-		}
-		return currentValue;
+		System.out.println("USING NEW VALUE");
+		return getNewValue();
 	}
 	
 	
